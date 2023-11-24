@@ -2,7 +2,6 @@ package com.example.RestApiClients.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,21 +9,21 @@ import java.util.List;
 @Entity
 @Table(name = "Clientes")
 @Data
-public class Client {
+public class Customer {
 
     @Id
     @Column(name = "idCliente ")
-    private String idClient;
+    private String customerId;
 
     @Basic
     @Column(name = "NomCliente")
-    private String clienteName;
+    private String customerName;
 
     @Column(name = "ApeCliente")
-    private String clientLastName;
+    private String customerLastName;
 
     @Column(name = "Direccion")
-    private String clientDirection;
+    private String customerDirection;
 
     @Column(name = "TelCliente")
     private String phoneNumber;
@@ -33,15 +32,15 @@ public class Client {
     @OneToMany(mappedBy = "client")
     private List<Purchase> purchaseList;
 
-    public Client() {
+    public Customer() {
         this.purchaseList = purchaseList;
     }
 
-    public Client(String idClient, String clienteName, String clientLastName, String clientDirection, String phoneNumber) {
-        this.idClient = idClient;
-        this.clienteName = clienteName;
-        this.clientLastName = clientLastName;
-        this.clientDirection = clientDirection;
+    public Customer(String customerId, String customerName, String customerLastName, String customerDirection, String phoneNumber) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.customerLastName = customerLastName;
+        this.customerDirection = customerDirection;
         this.phoneNumber = phoneNumber;
         this.purchaseList = new ArrayList<Purchase>();
     }
@@ -49,5 +48,7 @@ public class Client {
     public void addPurchase(Purchase purchase){
         this.purchaseList.add(purchase);
     }
+
+
 
 }

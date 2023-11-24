@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ClientDTO {
+public class CustomerDTO {
 
-    private String idClient;
-    private String clienteName;
-    private String clientLastName;
-    private String clientDirection;
+    private String customerId;
+    private String customerName;
+    private String customerLastName;
+    private String customerDirection;
     private String phoneNumber;
 
 }

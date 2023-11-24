@@ -1,5 +1,6 @@
 package com.example.RestApiClients.DTO;
 
+import com.example.RestApiClients.models.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,14 +15,13 @@ import java.util.List;
 public class PurchaseDTO {
 
     private Long purchaseId;
-    private Date purchaseDate;
     private String purchaseStatus;
     private BigDecimal payment;
     private ArrayList<ProductDTO> productsList;
+    private Customer customer;
 
-    public PurchaseDTO(Long purchaseId, Date purchaseDate, String purchaseStatus, double payment, ArrayList<ProductDTO> productsList) {
+    public PurchaseDTO(Long purchaseId, String purchaseStatus, ArrayList<ProductDTO> productsList) {
         this.purchaseId = purchaseId;
-        this.purchaseDate = purchaseDate;
         this.purchaseStatus = purchaseStatus;
         this.payment = getPayment(productsList);
         this.productsList = productsList;

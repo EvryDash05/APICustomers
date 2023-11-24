@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 
 @Entity
-@Table(name = "ProductosComprados")
+@Table(name = "DetalleFactura")
 @NoArgsConstructor
 @Data
 public class PurchaseDetail implements Serializable {
@@ -19,9 +19,9 @@ public class PurchaseDetail implements Serializable {
     private PurchaseDetailID purchaseDetailId;
 
     @Basic
-    @Column(name = "CantidadComprada")
+    @Column(name = "cantidadProducto")
     private int quantity;
-    @Column(name = "MontoTotal")
+    @Column(name = "MontoProducto")
     private BigDecimal totalAmnount;
 
     /*Relations*/
@@ -30,7 +30,7 @@ public class PurchaseDetail implements Serializable {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "IDCompra", referencedColumnName = "IDCompra")
+    @JoinColumn(name = "IDCompra", referencedColumnName = "idCompra")
     private Purchase purchase;
 
     public PurchaseDetail(int quantity, BigDecimal totalAmnount, Product product, Purchase purchase) {

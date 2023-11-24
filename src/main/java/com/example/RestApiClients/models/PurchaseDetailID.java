@@ -13,7 +13,7 @@ public class PurchaseDetailID implements Serializable {
     @Column(name = "purchaseId")
     private Long purchaseId;
 
-    @Column(name = "productID")
+    @Column(name = "productId")
     private String productId;
 
     public PurchaseDetailID(Long purchaseId, String productId) {

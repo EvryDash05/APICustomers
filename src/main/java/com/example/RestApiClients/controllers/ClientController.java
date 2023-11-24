@@ -1,20 +1,19 @@
 package com.example.RestApiClients.controllers;
 
-import com.example.RestApiClients.models.Client;
-import com.example.RestApiClients.service.ClientService;
+import com.example.RestApiClients.DTO.CustomerDTO;
+import com.example.RestApiClients.models.Customer;
+import com.example.RestApiClients.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/api")
+@RequestMapping("/v1/api")
 public class ClientController {
 
     @Autowired
-    private ClientService clientService;
+    private CustomerService customerService;
 
     @GetMapping("/")
     public String home(){
@@ -22,8 +21,13 @@ public class ClientController {
     }
 
     @GetMapping("/listClients")
-    public List<Client> getListClients(){
-        return clientService.getListClients();
+    public List<Customer> getListClients(){
+        return customerService.getListClustomers();
+    }
+
+    @PostMapping("/registerCustomer")
+    public void registerEmployee(@RequestBody CustomerDTO customerDTO){
+        customerService.saveClient(customerDTO);
     }
 
 

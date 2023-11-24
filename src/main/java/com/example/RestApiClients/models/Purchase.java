@@ -9,13 +9,13 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "ComprasCliente")
+@Table(name = "CompraCliente")
 @Data
 public class Purchase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IDCompra")
+    @Column(name = "iDCompra")
     private Long purchaseId;
 
     @Basic
@@ -31,13 +31,13 @@ public class Purchase {
 
     /*RELATIONS*/
     @ManyToOne
-    @JoinColumn(name = "IDCliente")
-    private Client client;
+    @JoinColumn(name = "iDCliente")
+    private Customer client;
 
     @OneToMany(mappedBy = "purchase")
     private List<PurchaseDetail> purchaseDetailList;
 
-    public Purchase(Long purchaseId, String purchaseStatus, BigDecimal payment, Client client) {
+    public Purchase(Long purchaseId, String purchaseStatus, BigDecimal payment, Customer client) {
         this.purchaseId = purchaseId;
         this.purchaseDate = new Date();
         this.purchaseStatus = purchaseStatus;
