@@ -27,6 +27,12 @@ public class PurchaseDTO {
         this.productsList = productsList;
     }
 
+    public PurchaseDTO(String purchaseStatus, ArrayList<ProductDTO> productsList) {
+        this.purchaseStatus = purchaseStatus;
+        this.payment = getPayment(productsList);
+        this.productsList = productsList;
+    }
+
     public BigDecimal getPayment(ArrayList<ProductDTO> productsList) {
         BigDecimal payment = productsList.stream().map(productDTO -> productDTO.getPrice())
                 .filter(price -> price != null)

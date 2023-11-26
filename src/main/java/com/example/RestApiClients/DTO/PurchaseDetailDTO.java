@@ -8,25 +8,17 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class PurchaseDetailDTO {
 
+    private Long purchaseId;
+    private String productId;
     private int quantity;
     private BigDecimal totalAmnount;
+    private ArrayList<ProductDTO> producsList;
 
-    public PurchaseDetailDTO(PurchaseDTO purchaseDTO) {
-        this.quantity = 1;
-        this.totalAmnount = new BigDecimal(123.2);
+    public PurchaseDetailDTO() {
     }
-
-    /*public int quantity(ArrayList<ProductDTO> productsList) {
-        int quantity = productsList.stream().map(p -> p.getProductId())
-                .filter().count();
-
-        return quantity;
-    }*/
-
 
 
 }

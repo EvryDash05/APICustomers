@@ -13,8 +13,7 @@ public class RestApiClientApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestApiClientApplication.class, args);
-		CustomerDTO c = new CustomerDTO("C002", "ASDAS", "ADSA", "ASD", "NNN");
-		c.toString(); /*{C002, ASDAS, }*/
+
 	}
 
 }

@@ -37,13 +37,12 @@ public class Purchase {
     @OneToMany(mappedBy = "purchase")
     private List<PurchaseDetail> purchaseDetailList;
 
-    public Purchase(Long purchaseId, String purchaseStatus, BigDecimal payment, Customer client) {
-        this.purchaseId = purchaseId;
+    public Purchase(String purchaseStatus, BigDecimal payment, Customer client, List<PurchaseDetail>purchaseDetailList) {
         this.purchaseDate = new Date();
         this.purchaseStatus = purchaseStatus;
         this.payment = payment;
         this.client = client;
+        this.purchaseDetailList = purchaseDetailList;
     }
-
 
 }

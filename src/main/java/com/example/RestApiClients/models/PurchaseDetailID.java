@@ -10,14 +10,15 @@ import java.io.Serializable;
 @Data
 public class PurchaseDetailID implements Serializable {
 
-    @Column(name = "purchaseId")
+    @Column(name = "idCompra")
     private Long purchaseId;
 
-    @Column(name = "productId")
+    @Column(name = "idProducto")
     private String productId;
 
     public PurchaseDetailID(Long purchaseId, String productId) {
         this.purchaseId = purchaseId;
         this.productId = productId;
     }
+
 }

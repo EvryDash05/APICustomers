@@ -29,6 +29,19 @@ public class CustomerService {
         clientRepository.save(customer);
     }
 
+    public void updateCustomer(CustomerDTO customerDTO){
+
+        Optional<Customer> optionalCustomer = getClientById(customerDTO.getCustomerId());
+
+        if(optionalCustomer.isPresent()) {
+
+            Customer customer = optionalCustomer.get();
+
+        }
+
+    }
+
+
     public void deleteClient(String clientID){
         clientRepository.deleteById(clientID);
     }
