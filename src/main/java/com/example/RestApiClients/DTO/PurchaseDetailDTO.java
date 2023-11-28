@@ -3,30 +3,38 @@ package com.example.RestApiClients.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.math.RoundingMode;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Data
 public class PurchaseDetailDTO {
 
-    private int quantity;
+    private String productId;
+    private String productName;
+    private Integer quantity;
+    private BigDecimal unitPrice;
     private BigDecimal totalAmnount;
+    private static Logger logger = LoggerFactory.getLogger(PurchaseDetailDTO.class);
 
-    public PurchaseDetailDTO(PurchaseDTO purchaseDTO) {
-        this.quantity = 1;
-        this.totalAmnount = new BigDecimal(123.2);
+    public PurchaseDetailDTO(String productId, String productName, Integer quantity, BigDecimal unitPrice) {
+        this.productId = productId;
+        this.productName = productName;
+        this.quantity = (quantity != null) ? quantity : 0;
+        if(this.quantity == null) {
+            logger.info("no hay pe xd");
+        }
+        this.unitPrice = (unitPrice != null) ? unitPrice : BigDecimal.ZERO;
+        setTotalAmnount(quantity, unitPrice);
     }
 
-    /*public int quantity(ArrayList<ProductDTO> productsList) {
-        int quantity = productsList.stream().map(p -> p.getProductId())
-                .filter().count();
-
-        return quantity;
-    }*/
-
-
+    public void setTotalAmnount(Integer quantity, BigDecimal unitPrice) {
+         this.totalAmnount = BigDecimal.valueOf(quantity).multiply(unitPrice)
+                .setScale(2, RoundingMode.HALF_UP);
+    }
 
 }

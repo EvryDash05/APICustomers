@@ -1,15 +1,21 @@
 package com.example.RestApiClients.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "CompraCliente")
+@NoArgsConstructor
 @Data
 public class Purchase {
 
@@ -32,18 +38,26 @@ public class Purchase {
     /*RELATIONS*/
     @ManyToOne
     @JoinColumn(name = "iDCliente")
-    private Customer client;
+    @JsonBackReference
+    private Customer customer;
 
     @OneToMany(mappedBy = "purchase")
     private List<PurchaseDetail> purchaseDetailList;
 
-    public Purchase(Long purchaseId, String purchaseStatus, BigDecimal payment, Customer client) {
-        this.purchaseId = purchaseId;
+    public Purchase(Date purchaseDate, String purchaseStatus, BigDecimal payment, Customer customer) {
+        this.purchaseDate = purchaseDate;
+        this.purchaseStatus = purchaseStatus;
+        this.payment = payment;
+        this.customer = customer;
+        this.purchaseDetailList = new ArrayList<>();
+    }
+
+    public Purchase(String purchaseStatus, BigDecimal payment, Customer customer, List<PurchaseDetail>purchaseDetailList) {
         this.purchaseDate = new Date();
         this.purchaseStatus = purchaseStatus;
         this.payment = payment;
-        this.client = client;
+        this.customer = customer;
+        this.purchaseDetailList = purchaseDetailList;
     }
-
 
 }

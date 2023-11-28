@@ -4,13 +4,14 @@ import com.example.RestApiClients.DTO.CustomerDTO;
 import com.example.RestApiClients.models.Customer;
 import com.example.RestApiClients.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/v1/api")
-public class ClientController {
+public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
@@ -30,6 +31,10 @@ public class ClientController {
         customerService.saveClient(customerDTO);
     }
 
+    @GetMapping("/customers/{customerId}")
+    public Customer getCustomer(@PathVariable String customerId){
+        return customerService.getClientById(customerId).get();
+    }
 
 
 
