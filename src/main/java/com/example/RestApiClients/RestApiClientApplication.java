@@ -13,7 +13,6 @@ public class RestApiClientApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestApiClientApplication.class, args);
-
 	}
 
 }

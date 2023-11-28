@@ -1,5 +1,8 @@
 package com.example.RestApiClients.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -29,7 +32,8 @@ public class Customer {
     private String phoneNumber;
 
     /*RELATIONS*/
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "customer")
+    @JsonManagedReference
     private List<Purchase> purchaseList;
 
     public Customer() {

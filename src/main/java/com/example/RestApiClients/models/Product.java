@@ -1,5 +1,7 @@
 package com.example.RestApiClients.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,6 +34,7 @@ public class Product {
 
     /*RELATIONS*/
     @OneToMany(mappedBy = "product")
+    @JsonManagedReference
     private List<PurchaseDetail> purchaseDetailList;
 
     public Product(String productId, String productName, String productDescription, BigDecimal price, int quantity) {

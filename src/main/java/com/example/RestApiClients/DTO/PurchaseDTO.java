@@ -1,6 +1,7 @@
 package com.example.RestApiClients.DTO;
 
 import com.example.RestApiClients.models.Customer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,35 +10,31 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Data
 public class PurchaseDTO {
 
-    private Long purchaseId;
     private String purchaseStatus;
+    private Date purchaseDate;
     private BigDecimal payment;
-    private ArrayList<ProductDTO> productsList;
+    private List<PurchaseDetailDTO> listPurchaseDetailDTO;
     private Customer customer;
 
-    public PurchaseDTO(Long purchaseId, String purchaseStatus, ArrayList<ProductDTO> productsList) {
-        this.purchaseId = purchaseId;
-        this.purchaseStatus = purchaseStatus;
-        this.payment = getPayment(productsList);
-        this.productsList = productsList;
+    public PurchaseDTO(List<PurchaseDetailDTO> listPurchaseDetailDTO, Customer customer) {
+        this.purchaseStatus = "P";
+        this.purchaseDate = new Date();
+        this.listPurchaseDetailDTO = listPurchaseDetailDTO;
+        this.payment = getPayment(listPurchaseDetailDTO);
+        this.customer = customer;
     }
 
-    public PurchaseDTO(String purchaseStatus, ArrayList<ProductDTO> productsList) {
-        this.purchaseStatus = purchaseStatus;
-        this.payment = getPayment(productsList);
-        this.productsList = productsList;
-    }
-
-    public BigDecimal getPayment(ArrayList<ProductDTO> productsList) {
-        BigDecimal payment = productsList.stream().map(productDTO -> productDTO.getPrice())
-                .filter(price -> price != null)
+    public BigDecimal getPayment(List<PurchaseDetailDTO> listPurchaseDetailDTO) {
+        return listPurchaseDetailDTO.stream().
+                map(PurchaseDetailDTO::getTotalAmnount)
+                .filter(Objects::nonNull)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        return payment;
     }
 
 }

@@ -1,6 +1,8 @@
 package com.example.RestApiClients.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,29 +17,35 @@ import java.math.BigDecimal;
 @Data
 public class PurchaseDetail implements Serializable {
 
+
+    /*@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long purchaseDetailId;*/
     @EmbeddedId
     private PurchaseDetailID purchaseDetailId;
 
     @Basic
     @Column(name = "cantidadProducto")
-    private int quantity;
+    private Integer quantity;
     @Column(name = "MontoProducto")
     private BigDecimal totalAmnount;
 
     /*Relations*/
     @ManyToOne
-    @JoinColumn(name = "IDProducto", referencedColumnName = "idProducto")
+    @JoinColumn(name = "idProducto", referencedColumnName = "idProducto", insertable = false, updatable = false)
+    @JsonBackReference
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "IDCompra", referencedColumnName = "idCompra")
+    @JoinColumn(name = "IDCompra", referencedColumnName = "idCompra", insertable = false, updatable = false)
+    @JsonBackReference
     private Purchase purchase;
 
-    public PurchaseDetail(int quantity, BigDecimal totalAmnount, Product product, Purchase purchase) {
-        this.quantity = quantity;
-        this.totalAmnount = totalAmnount;
-        this.product = product;
+    public PurchaseDetail(Purchase purchase, Product product, Integer quantity, BigDecimal totalAmnount) {
         this.purchase = purchase;
+        this.product = product;
+        this.totalAmnount = totalAmnount;
+        this.quantity = quantity;
         this.purchaseDetailId = new PurchaseDetailID(purchase.getPurchaseId(), product.getProductId());
     }
 
