@@ -16,25 +16,25 @@ public class PurchaseDetailDTO {
 
     private String productId;
     private String productName;
-    private Integer quantity;
+    private Long quantity;
     private BigDecimal unitPrice;
-    private BigDecimal totalAmnount;
-    private static Logger logger = LoggerFactory.getLogger(PurchaseDetailDTO.class);
+    private BigDecimal totalAmount;
 
-    public PurchaseDetailDTO(String productId, String productName, Integer quantity, BigDecimal unitPrice) {
+    private static final Logger logger = LoggerFactory.getLogger(PurchaseDetailDTO.class);
+
+    public PurchaseDetailDTO(String productId, String productName, Long quantity, BigDecimal unitPrice) {
         this.productId = productId;
         this.productName = productName;
-        this.quantity = (quantity != null) ? quantity : 0;
-        if(this.quantity == null) {
-            logger.info("no hay pe xd");
-        }
-        this.unitPrice = (unitPrice != null) ? unitPrice : BigDecimal.ZERO;
-        setTotalAmnount(quantity, unitPrice);
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
+        this.totalAmount = setTotalAmount();
     }
 
-    public void setTotalAmnount(Integer quantity, BigDecimal unitPrice) {
-         this.totalAmnount = BigDecimal.valueOf(quantity).multiply(unitPrice)
+    public BigDecimal setTotalAmount() {
+        BigDecimal result;
+        result = BigDecimal.valueOf(this.quantity, 1).multiply(this.unitPrice)
                 .setScale(2, RoundingMode.HALF_UP);
+        return result;
     }
 
 }
