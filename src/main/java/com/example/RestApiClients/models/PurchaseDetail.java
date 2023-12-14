@@ -26,9 +26,9 @@ public class PurchaseDetail implements Serializable {
 
     @Basic
     @Column(name = "cantidadProducto")
-    private Integer quantity;
+    private Long quantity;
     @Column(name = "MontoProducto")
-    private BigDecimal totalAmnount;
+    private BigDecimal totalAmount;
 
     /*Relations*/
     @ManyToOne
@@ -41,10 +41,10 @@ public class PurchaseDetail implements Serializable {
     @JsonBackReference
     private Purchase purchase;
 
-    public PurchaseDetail(Purchase purchase, Product product, Integer quantity, BigDecimal totalAmnount) {
+    public PurchaseDetail(Purchase purchase, Product product, Long quantity, BigDecimal totalAmount) {
         this.purchase = purchase;
         this.product = product;
-        this.totalAmnount = totalAmnount;
+        this.totalAmount = totalAmount;
         this.quantity = quantity;
         this.purchaseDetailId = new PurchaseDetailID(purchase.getPurchaseId(), product.getProductId());
     }

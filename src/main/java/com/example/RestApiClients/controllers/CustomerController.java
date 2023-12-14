@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/api")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CustomerController {
 
     @Autowired
@@ -35,7 +36,5 @@ public class CustomerController {
     public Customer getCustomer(@PathVariable String customerId){
         return customerService.getClientById(customerId).get();
     }
-
-
 
 }

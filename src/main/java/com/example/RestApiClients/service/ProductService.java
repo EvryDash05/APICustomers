@@ -22,6 +22,21 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
+    public void updateStock(String prodcutId, int quantity){
 
+        Product product = getProductById(prodcutId).get();
+        int updateStock;
+
+        if(product != null){
+            int currentStock = product.getQuantity();
+            updateStock = currentStock - quantity;
+            if(updateStock < quantity){
+                updateStock = 0;
+            }
+            product.setQuantity(updateStock);
+            productRepository.save(product);
+        }
+
+    }
 
 }

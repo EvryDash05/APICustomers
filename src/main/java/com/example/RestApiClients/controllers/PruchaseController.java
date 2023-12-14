@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/api")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PruchaseController {
 
     @Autowired
@@ -30,7 +29,6 @@ public class PruchaseController {
     private CustomerService customerService;
     private static Logger logger = LoggerFactory.getLogger(PruchaseController.class);
 
-
     @PostMapping("/purchaseProducts/{customerId}")
     public void createPurchase(@RequestBody List<PurchaseDetailDTO> listPurchaseDetailDTO, @PathVariable String customerId) {
 
@@ -38,30 +36,27 @@ public class PruchaseController {
 
         PurchaseDTO purchaseDTO = new PurchaseDTO(listPurchaseDetailDTO, customer);
 
-        for(PurchaseDetailDTO detail : listPurchaseDetailDTO ){
-            if(detail == null){
-                logger.info("no hay xd");
-            }
-        }
-
         Purchase purchase = new Purchase(purchaseDTO.getPurchaseDate(), purchaseDTO.getPurchaseStatus(),
                 purchaseDTO.getPayment(), purchaseDTO.getCustomer());
 
         //The method 'createPurchase' return a purchase created
         Purchase createdPurchase = purchaseService.createPurchase(purchase);
         purchaseDetailService.getPurchaseDetailList(listPurchaseDetailDTO, createdPurchase);
-
     }
 
     @GetMapping("/getPurchase/{purchaseId}")
-    public Purchase getPurchase(@PathVariable Long purchaseId){
+    public Purchase getPurchase(@PathVariable Long purchaseId) {
         return purchaseService.getPurchaseById(purchaseId).get();
     }
 
     @GetMapping("/getPruchaseByCustomer/{idCustomer}")
-    public List<Purchase> getPruchase(@PathVariable String idCustomer){
+    public List<Purchase> getPruchase(@PathVariable String idCustomer) {
         return purchaseService.getPurchaseListByIdCustomer(idCustomer);
     }
 
+    @GetMapping("/getPurchaseList")
+    public List<Purchase> purchaseList(){
+        return purchaseService.getPurchaseList();
+    }
 
 }

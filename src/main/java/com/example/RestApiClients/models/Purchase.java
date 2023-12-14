@@ -3,6 +3,7 @@ package com.example.RestApiClients.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -42,6 +43,7 @@ public class Purchase {
     private Customer customer;
 
     @OneToMany(mappedBy = "purchase")
+    @JsonIgnoreProperties("purchaseDetailList")
     private List<PurchaseDetail> purchaseDetailList;
 
     public Purchase(Date purchaseDate, String purchaseStatus, BigDecimal payment, Customer customer) {
@@ -52,7 +54,7 @@ public class Purchase {
         this.purchaseDetailList = new ArrayList<>();
     }
 
-    public Purchase(String purchaseStatus, BigDecimal payment, Customer customer, List<PurchaseDetail>purchaseDetailList) {
+    public Purchase(String purchaseStatus, BigDecimal payment, Customer customer, List<PurchaseDetail> purchaseDetailList) {
         this.purchaseDate = new Date();
         this.purchaseStatus = purchaseStatus;
         this.payment = payment;

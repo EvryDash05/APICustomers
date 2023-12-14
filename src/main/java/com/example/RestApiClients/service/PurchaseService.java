@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,12 +28,12 @@ public class PurchaseService {
         return purchaseRepository.save(purchase);
     }
 
-    public void addPurhcaseDetail(List<PurchaseDetail> purchaseDetailList){
-
-    }
-
     public Optional<Purchase> getPurchaseById(Long purchaseId){
         return purchaseRepository.findById(purchaseId);
+    }
+
+    public List<Purchase> getPurchaseList(){
+        return purchaseRepository.findAll();
     }
 
     public List<Purchase> getPurchaseListByIdCustomer(String customerId){
@@ -40,5 +41,9 @@ public class PurchaseService {
         return customer.getPurchaseList();
     }
 
+    public void updatePayment(Purchase purchase, BigDecimal totalPayment){
+        purchase.setPayment(totalPayment);
+        purchaseRepository.save(purchase);
+    }
 
 }
